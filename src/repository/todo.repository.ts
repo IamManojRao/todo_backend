@@ -11,11 +11,10 @@ export default {
     return await Todo.find({ user: userId }).sort({ createdAt: -1 });
   },
 
-  async findAndUpdate(todoId: string, userId: string, updateData: any) {
+  async findAndUpdate(todoId: string, updateData: any) {
     return await Todo.findOneAndUpdate(
-      { _id: todoId, user: userId },
-      updateData,
-      { new: true }
+      { _id: todoId },
+      updateData
     );
   },
 

@@ -1,7 +1,7 @@
 // src/models/Todo.ts
 import { Schema, model, Document } from 'mongoose';
 
-interface ITodo extends Document {
+export interface ITodo extends Document {
   _id: string;
   title: string;
   completed: boolean;

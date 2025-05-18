@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/', todoController.createTodo);
 router.get('/user/:userId', todoController.getUserTodos);
-router.put('/:id', todoController.updateTodo);
+router.put('/:todoId', todoController.updateTodo);
 router.delete('/:id', todoController.deleteTodo);
 
 // Error handling middleware (should be last)

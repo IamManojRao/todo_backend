@@ -14,8 +14,8 @@ export default {
     return todos;
   },
 
-  async updateTodo(todoId: string, userId: string, updateData: any) {
-    const todo = await todoRepository.findAndUpdate(todoId, userId, updateData);
+  async updateTodo(todoId: string, updateData: any) {
+    const todo = await todoRepository.findAndUpdate(todoId, updateData);
     if (!todo) throw new createError.NotFound('Todo not found');
     return todo;
   },
