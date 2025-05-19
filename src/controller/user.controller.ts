@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import { UserService } from '../services/user.service';
+import { STATUS_MESSAGES } from '../constants/statusMessages';
 
 class UserController {
   private userService: UserService;
@@ -24,7 +25,7 @@ class UserController {
       const { email } = req.body;
       
       if (!email) {
-        throw new createError.BadRequest('Username and email are required');
+        throw new createError.BadRequest(STATUS_MESSAGES.EMAIL_ID_REQUIRED);
       }
 
       const user = await this.userService.createUser(email);

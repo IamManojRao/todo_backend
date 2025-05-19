@@ -2,6 +2,7 @@
 import createError from 'http-errors';
 import { IUser } from '../models/User.model';
 import { IUserRepository, UserRepository } from '../repository/user.repository';
+import { STATUS_MESSAGES } from '../constants/statusMessages';
 
 export class UserService {
   private repository: IUserRepository;
@@ -15,7 +16,7 @@ export class UserService {
       const userExists = await this.repository.exists(email);
 
       if (userExists) {
-        throw new createError.Conflict('Email already exists');
+        throw new createError.Conflict(STATUS_MESSAGES.EMAIL_ID_EXISTS);
       }
 
       const createdUser = await this.repository.create({ email });
@@ -24,10 +25,10 @@ export class UserService {
 
     } catch (error) {
       // Handle known or unknown DB errors
-      console.error('Error creating user:', error);
+      console.error(STATUS_MESSAGES.ERROR_IN_USER_CREATION, error);
 
       // Rethrow as a standardized HTTP error
-      throw new createError.InternalServerError('error on creating users');
+      throw new createError.InternalServerError();
     }
   }
 
@@ -42,7 +43,7 @@ export class UserService {
 
   async deleteUser(id: string): Promise<IUser> {
     const user = await this.repository.deleteById(id);
-    if (!user) throw new createError.NotFound('User not found');
+    if (!user) throw new createError.NotFound(STATUS_MESSAGES.USER_NOT_FOUND);
     return user;
   }
 
